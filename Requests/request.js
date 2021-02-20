@@ -7,20 +7,21 @@ app.use(express.json());
 const fetch = require("node-fetch");
 const HttpsProxyAgent = require("https-proxy-agent");
 
-const infoRequest = async function (url, stockSymbol) {
+const infoRequest = async function (url2, stockSymbol) {
   // const proxyAgent = HttpsProxyAgent("http://113.120.61.189:43644");
   // const response = await fetch(url, { agent: proxyAgent });
 
   // const body = await response.text;
 
   // INFO REQUEST
-  request({ url, json: true }, async (error, { body }) => {
-    let data = await body;
+  // request({ url, json: true }, async (error, { body }) => {
+    const response = await axios.post("https://yagura-proxy-server.herokuapp.com/proxy",  { url: url2 }  )
+    let data = await response.data;
 
     // ERROR HANDLING
     if (Object.keys(data).includes("Note"))
       console.log(stockSymbol + " EXCESSIVE REQUEST");
-    if (error) console.log("UNABLE TO FETCH DATA FROM SOURCE: ", error);
+    // if (error) console.log("UNABLE TO FETCH DATA FROM SOURCE: ", error);
 
     try {
       // DESTRUCTURING 1ST PHASE
@@ -88,7 +89,7 @@ const infoRequest = async function (url, stockSymbol) {
     } catch (e) {
       console.log("ERROR: ", e);
     }
-  });
+  // });
 };
 
 module.exports = infoRequest;

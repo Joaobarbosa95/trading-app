@@ -29,4 +29,4 @@ const instance = axios.create({
   
   // headers: { "Content-Type": "application/json" },
 });
-instance.post("https://yagura-proxy-server.herokuapp.com/",  { url: "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=AEIS&interval=1min&outputsize=full&apikey=7T5OCZSH71E6H75O" }  ).then((response) => console.log(response.data));
+instance.post("https://yagura-proxy-server.herokuapp.com/proxy",  { url: "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=TLSA&interval=1min&outputsize=full&apikey=7T5OCZSH71E6H75O" }  ).then((response) => console.log(response.data));
