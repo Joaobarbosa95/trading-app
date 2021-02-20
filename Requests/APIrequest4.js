@@ -39,29 +39,39 @@ async function APIrequest(stockSymbol, APIkey) {
   await infoRequest(url, stockSymbol);
 }
 
-let count = 0;
-const reqInterval = setInterval(() => {
-  // APIrequest(
-  //   S0_500[count],
-  //   `${api_keys[0].api_key}`,
-  //   "http:/116.12.236.213:8080"
-  // );
-  APIrequest(S501_1000[count], `${api_keys[1].api_key}`);
-  // APIrequest(
-  //   S1001_1500[count],
-  //   `${api_keys[2].api_key}`,
-  //   "http://193.56.255.179:3128"
-  // );
-  // APIrequest(
-  //   S1501_2000[count],
-  //   `${api_keys[3].api_key}`,
-  //   "http://193.56.255.181:3128"
-  // );
-  count++;
-  console.log(count);
-  if (count === 500) clearInterval(reqInterval);
-}, 15000);
+app.get("/api", (req, res) => {
+  let count = 0;
+  const reqInterval = setInterval(() => {
+    // APIrequest(
+    //   S0_500[count],
+    //   `${api_keys[0].api_key}`,
+    //   "http:/116.12.236.213:8080"
+    // );
+    // APIrequest(
+    //   S501_1000[count],
+    //   `${api_keys[1].api_key}`,
+    //   "http://116.12.236.212:8080"
+    // );
+    // APIrequest(
+    //   S1001_1500[count],
+    //   `${api_keys[2].api_key}`,
+    //   "http://193.56.255.179:3128"
+    // );
+    APIrequest(S1501_2000[count], `${api_keys[3].api_key}`);
+    count++;
+    console.log(count);
+    if (count === 500) clearInterval(reqInterval);
+  }, 20000);
+});
 
+// console.log(`${api_keys[0].api_key}`, `${api_keys[1].api_key}`);
+
+// this call will be on INDEX.js
+app.listen(7000, () => console.log("Server running on port 7000"));
+
+request("http://127.0.0.1:7000/api", (error, res) => {
+  console.log("DONE");
+});
 // Notes
 // proxy chaining seems a bit confused (or maybe was the url variable in request.js).
 // try using curl or wget to proxy request the info if it exceeds the IP request (not the keys)

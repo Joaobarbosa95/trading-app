@@ -2,17 +2,24 @@
   "name": "trading-app",
   "version": "1.0.0",
   "description": "",
-  "main": "APIrequest.js",
+  "main": "Requests/exp/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node Requests/exp/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.1",
+    "cheerio": "^1.0.0-rc.5",
     "express": "^4.17.1",
+    "https-proxy-agent": "^5.0.0",
     "mongodb": "^3.6.3",
     "mongoose": "^5.11.13",
-    "request": "^2.88.2"
+    "node-fetch": "^2.6.1",
+    "node-global-proxy": "^1.0.1",
+    "puppeteer": "^7.0.1",
+    "request": "^2.88.2",
+    "url": "^0.11.0"
   }
 }
