@@ -12,10 +12,10 @@ const {
 const { api_keys } = require("./API-keys.json");
 
 // REQUEST FUNCTION
-async function APIrequest(stockSymbol, APIkey) {
+async function APIrequest(stockSymbol, APIkey, proxy) {
   const url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${stockSymbol}&interval=1min&outputsize=full&apikey=${APIkey}`;
 
-  await infoRequest(url, stockSymbol);
+  await infoRequest(url, stockSymbol, proxy);
 }
 
 // IF THERE IS AN ERROR AND NEED TO START AT A PRECISE POINT
