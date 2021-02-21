@@ -2,9 +2,9 @@
   "name": "trading-app",
   "version": "1.0.0",
   "description": "",
-  "main": "Proxies/proxy-one.js",
+  "main": "Requests/Proxies/proxy-one.js",
   "scripts": {
-    "start": "node Proxies/proxy-one.js"
+    "start": "node Requests/Proxies/proxy-one.js"
   },
   "keywords": [],
   "author": "",
