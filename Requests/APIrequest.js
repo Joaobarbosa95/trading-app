@@ -1,17 +1,4 @@
-//-------------------------------------------------------------------------------------------
-
-// Alphavantage API request
-// for loop requests 500 requests
-// await for indiviual request
-// if request.include("Note"), i = i - 1 to repeat and set a timeout = to ...
-// else you can save it and continue
-
-// Call infoRequest function to every API key (much easier and faster than change API keys)
-
-const express = require("express");
-
-// REQUEST
-const infoRequest = require("./request.js");
+const infoRequest = require("./infoRequest.js");
 
 // STOCK ARRAYS
 const {
@@ -23,46 +10,41 @@ const {
 
 // API KEYS
 const { api_keys } = require("./API-keys.json");
-const request = require("request");
 
-// SERVER
-const app = express();
-app.use(express.json());
-
-// stocks will have their own separate js files, to not crowd the app environment
-// divide the stocks by alphabetic order (500 stocks max)
-// each array to its own API key
-
+// REQUEST FUNCTION
 async function APIrequest(stockSymbol, APIkey) {
   const url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${stockSymbol}&interval=1min&outputsize=full&apikey=${APIkey}`;
 
   await infoRequest(url, stockSymbol);
 }
 
-let count = 0;
-const reqInterval = setInterval(() => {
-  // APIrequest(
-  //   S0_500[count],
-  //   `${api_keys[0].api_key}`,
-  //   "http:/116.12.236.213:8080"
-  // );
-  APIrequest(S501_1000[count], `${api_keys[1].api_key}`);
-  // APIrequest(
-  //   S1001_1500[count],
-  //   `${api_keys[2].api_key}`,
-  //   "http://193.56.255.179:3128"
-  // );
-  // APIrequest(
-  //   S1501_2000[count],
-  //   `${api_keys[3].api_key}`,
-  //   "http://193.56.255.181:3128"
-  // );
+// IF THERE IS AN ERROR AND NEED TO START AT A PRECISE POINT
+let count = process.argv[2] || 0;
+
+// REQUESTS FUNCTION CALL
+const reqInterval = setInterval(async () => {
+  APIrequest(
+    S0_500[count],
+    `${api_keys[0].api_key}`,
+    "https://yagura-proxy-one.herokuapp.com/proxy-one"
+  );
+  APIrequest(
+    S501_1000[count],
+    `${api_keys[1].api_key}`,
+    "https://yagura-proxy-two.herokuapp.com/proxy-two"
+  );
+  APIrequest(
+    S1001_1500[count],
+    `${api_keys[2].api_key}`,
+    "https://yagura-proxy-three.herokuapp.com/proxy-three"
+  );
+  APIrequest(
+    S1501_2000[count],
+    `${api_keys[3].api_key}`,
+    "https://yagura-proxy-four.herokuapp.com/proxy-four"
+  );
+
   count++;
   console.log(count);
   if (count === 500) clearInterval(reqInterval);
 }, 15000);
-
-// Notes
-// proxy chaining seems a bit confused (or maybe was the url variable in request.js).
-// try using curl or wget to proxy request the info if it exceeds the IP request (not the keys)
-// Try running a server on another port
