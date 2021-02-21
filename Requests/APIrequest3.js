@@ -45,7 +45,7 @@ async function APIrequest(stockSymbol, APIkey) {
 // proxy chaining seems a bit confused (or maybe was the url variable in request.js).
 // try using curl or wget to proxy request the info if it exceeds the IP request (not the keys)
 // Try running a server on another port
-app.get("/", (req, res) => {
+
   let count = 0;
   const reqInterval = setInterval(() => {
     // APIrequest(
@@ -68,9 +68,7 @@ app.get("/", (req, res) => {
     count++;
     console.log(count);
     if (count === 500) clearInterval(reqInterval);
-  }, 20000);
-});
+  }, 15000);
 
 app.listen(5000, () => console.log("Server running on port 5000"));
 
-request("http://127.0.0.1:5000/", (error, res) => console.log(res));

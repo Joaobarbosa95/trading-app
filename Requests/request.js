@@ -15,7 +15,7 @@ const infoRequest = async function (url2, stockSymbol) {
 
   // INFO REQUEST
   // request({ url, json: true }, async (error, { body }) => {
-    const response = await axios.post("https://yagura-proxy-server.herokuapp.com/proxy",  { url: url2 }  )
+    const response = await axios.post("https://yagura-proxy-two.herokuapp.com/proxy-one",  { url: url2 }  )
     let data = await response.data;
 
     // ERROR HANDLING
